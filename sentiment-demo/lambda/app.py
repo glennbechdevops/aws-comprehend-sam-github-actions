@@ -1,6 +1,3 @@
-import os
-import json
-import boto3
 
 def handler(event, context):
 
@@ -9,6 +6,5 @@ def handler(event, context):
             "headers": {
                 "Content-Type": "application/json"
             },
-            "body": "Hello World"
-            
+            "body": event
             }
