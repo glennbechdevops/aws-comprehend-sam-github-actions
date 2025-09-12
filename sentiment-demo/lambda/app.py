@@ -9,7 +9,6 @@ def handler(event, context):
             "headers": {
                 "Content-Type": "application/json"
             },
-            "body": json.dumps({
-                "sentiment ": json.dumps(sentiment)
-            })
-        }
+            "body": "Hello World"
+            
+            }
