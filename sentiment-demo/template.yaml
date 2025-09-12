@@ -21,7 +21,7 @@ Resources:
           Type: Api
           Properties:
             Path: /sentiment
-            Method: post
+            Method: GET 
 
   LambdaRole:
     Type: 'AWS::IAM::Role'
