@@ -19,31 +19,26 @@ Du må start med å lage en fork av dette repoet til din egen GitHub konto.
 
 ## Lag AWS Credentials (Access keys)
 
-* Hvis du har laget og tatt vare på access keys fra tidligere, kan du benytte disse. Hvis ikke må du lage nye.
-* Følg veiledningen her for å lage Access Key og Secret Access Key  - https://github.com/glennbechdevops/aws-iam-accesskeys
+Du vil få utdelt access keys i klasserommet for denne øvingen.
 
-## Sett Access Key & secret som CodeSpaces secret
-
-<img width="2652" height="1186" alt="image" src="https://github.com/user-attachments/assets/e5eb3cc1-8310-4515-b0f8-54acbd6b2db9" />
-
-* I din fork, velg "settings" og "Secrets and Variables"
-* Velg "Code Spaces" og "New repository secret"
-* Du skal lage to repository secrets med navn: AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
-* Legg inn verdier du fikk oppgitt når du laget nøklene, eller fra filen du lastet ned
-
-## Sett Access Key & secret som Action secret
-
-* Legg inn de samme repo-hemmelighetene under "Secrets and Variables" og  *Actions* 
 
 ## Start et Codespace & Installer nødvendig programvare 
 * Fra din fork av dette repositoryet, starter du CodeSpaces. Keyboard shortcut er "."
-* Alternativt, velg den grønne "Code", "Velg Codespaces" og "Create codespace from main"
 * Fra ditt mnye CodeSpace - Åpne et **terminalvindu**, og velg "Continue working in GitHub Codespaces"
+
+* Alternativt, velg den grønne "Code", "Velg Codespaces" og "Create codespace from main", Da får du en terminal umiddelbart
   
 ### Installer AWS CLI 
 
-I terminalen kjør følgende kommandoer
 
+Konfigurer AWS i terminalen med nøkler du har fått i klassetommet
+
+```
+aws configure
+```
+
+
+Installer AWS CLI
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
@@ -82,7 +77,7 @@ Du kan teste funksjonen uten å deploye den til AWS ved å kjøre kommandoen
 sam local invoke -e event.json 
 ```
 
-Event.json filen inneholder en request, nøyaktig slik API Gateway sender den til "handler" metoden/funksjonen. 
+Event.json filen inneholder en request, nøyaktig slik API Gateway vil sende den til "handler" metoden/funksjonen. 
 
 Du skal få en respons omtrent som denne, legg merke til at både _Negative_,_Positive_ og _Neutral_ oppgis med probabilitet. 
 
@@ -91,10 +86,8 @@ Du skal få en respons omtrent som denne, legg merke til at både _Negative_,_Po
 REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  Duration: 1674.95 ms    Billed Duration: 1675 ms        Memory Size: 128 MB     Max Memory Used: 128 MB
 ```
 
-* Ta en ekstra kikk på event.json. Dette er objektet AWS Lambda får av tjenesten API Gateway .
 * Forsøke å endre teksten i "Body" delen av event.json - klarer å å endre sentimentet til positivt ?
   
-
 ## Oppgave: Utforsk Lambda-funksjonen i konsollet
 
 Når dere deployet applikasjonen med **SAM**, ble det opprettet en Lambda-funksjon i AWS.  
@@ -113,8 +106,7 @@ I denne oppgaven skal dere utforske den funksjonen i **AWS Management Console** 
    - Sett timeout til **60 sekunder**.  
    - Bekreft at endringen er lagret.
 
-Her er målet å bli kjent med Lambda i konsollet og forstå hvordan SAM og AWS Console henger sammen. Ikke alle svar finnes direkte i 
-oppgaveteksten – dere må selv utforske og bruke konsollet aktivt.
+Her er målet å bli kjent med Lambda i konsollet og forstå hvordan SAM og AWS Console henger sammen. 
 
 ## Del 1 - Deploy med SAM fra CodeSpaces
 
@@ -192,7 +184,7 @@ jobs:
 **Forklaring av workflowen**
 
 * on: push to main → Workflow kjører når du pusher til main.
-* aws-actions/configure-aws-credentials → Leser inn de hemmelige nøklene du lagde i steg 1 (Secrets).
+* aws-actions/configure-aws-credentials → Leser inn de hemmelige nøklene du har lagret som `repository secrets`
 * sam build → Bygger Lambdaen og pakker koden.
 * sam deploy → Ruller ut endringer til AWS automatisk.
 * Stack-navnet inkluderer github.actor (ditt GitHub brukernavn) for å gjøre det unikt.
