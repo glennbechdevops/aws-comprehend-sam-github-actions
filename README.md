@@ -199,6 +199,8 @@ Du vil få utlevert AWS nøkler i klasserommet.  I ditt GitHub Repo
 
 **Commit & synkroniser filen `deploy.yml`** (Git push)
 
+Fra rotkatalogen i prosjektet
+
 ```
 git add .github/
 git commit -m"Workflow"
