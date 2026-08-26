@@ -89,7 +89,7 @@ template.yaml er en SAM template. Dette er IaC — infrastruktur som kode. All i
 ## Del 1 - Deploy med SAM fra CodeSpaces
 
 * Du kan også bruke SAM til å deploye lambdafunksjonen rett fra CodeSpaces 
-* NB! Du må endre Stack name til noe unikt. Legg på ditt navn, for eksempel; ```--stack-name sam-sentiment-ola```
+* NB! Du må endre Stack name til noe unikt. Legg på ditt navn, for eksempel: ```--stack-name sam-sentiment-ola```
 
 Som dere ser trenger vi IKKE bruke ```--guided``` flagget hvis vi oppgir de nødvendige parameterene på kommando-linjen
 
@@ -104,7 +104,7 @@ Når jobben er ferdig, vil du blant annet se hva URL'en til lambdafunksjonen ble
 ```text
 Key                 SentimentAPI                                                                
 Description         API Gateway endpoint URL for Prod stage for Sentiment function              
-Value               https://orpbuzoiik.execute-api.us-west-1.amazonaws.com/Prod/sentiment/      
+Value               https://orpbuzoiik.execute-api.eu-west-1.amazonaws.com/Prod/sentiment/      
 ```
 
 Du kan nå bruke postman eller Curl til å teste ut tjenesten. Erstatt URL med URL'en til lambdafunksjonen. 
@@ -199,9 +199,10 @@ Du vil få utlevert AWS-nøkler i klasserommet. I ditt GitHub-repo
 
 **Commit & synkroniser filen `deploy.yml`** (Git push)
 
-Fra rotkatalogen i prosjektet
+Fra rotkatalogen i prosjektet (gå ut av `sentiment-demo/` først hvis du står der):
 
 ```
+cd ..
 git add .github/
 git commit -m"Workflow"
 git push
@@ -222,7 +223,7 @@ Noen muligheter
 * Toxic språk
 * Oppdage språk i tekst
 
-### Bonusoppgave: Legg inn sjekk for kvalitet (lint, validering og tester)
+## Bonusoppgave: Legg inn sjekk for kvalitet (lint, validering og tester)
 
 Ved hjelp av dokumentasjon eller andre verktøy (Gjerne bruk AI) - gjør følgende. 
 
