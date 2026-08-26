@@ -19,7 +19,7 @@ Du må starte med å lage en fork av dette repoet til din egen GitHub-konto.
 
 ## Start et Codespace & Installer nødvendig programvare 
 
-* I din fork, velg den grønne knappen "<> Code", og "Create codespace on main" 
+I din fork, velg den grønne knappen "<> Code", og "Create codespace on main". 
   
 ### Installer AWS CLI 
 
@@ -52,8 +52,7 @@ sudo ./sam-installation/install
 
 ## Test bygg og lokal utvikling fra CodeSpaces med SAM
 
-* Ta en kikk på koden som ligger i mappen "sentiment-demo". Dette er en Lambda som tar imot en HTTP request - og som
-sender en tekst videre til tjenesten AWS Comprehend for sentimentanalyse.
+Ta en kikk på koden som ligger i mappen `sentiment-demo`. Dette er en Lambda som tar imot en HTTP request og sender en tekst videre til tjenesten AWS Comprehend for sentimentanalyse.
 
 Gå til mappen og bygg lambdaen / SAM prosjektet.
 
@@ -71,7 +70,7 @@ sam local invoke -e event.json
 
 Dette vil også ta litt tid første gang. Hent en kaffe :)
 
-Event.json filen inneholder en request, nøyaktig slik API Gateway vil sende den til "handler" metoden/funksjonen. 
+`event.json`-filen inneholder en request, nøyaktig slik API Gateway vil sende den til `handler`-metoden/funksjonen. 
 
 Du skal få en respons omtrent som denne, legg merke til at både _Negative_, _Positive_ og _Neutral_ oppgis med probabilitet. 
 
