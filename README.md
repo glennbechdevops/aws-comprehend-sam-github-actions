@@ -86,7 +86,6 @@ REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  
 
 template.yaml er en SAM template. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
   
-
 ## Del 1 - Deploy med SAM fra CodeSpaces
 
 * Du kan også bruke SAM til å deploye lambdafunksjonen rett fra CodeSpaces 
