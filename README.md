@@ -30,19 +30,17 @@ Du vil få utdelt access keys i klasserommet for denne øvingen.
   
 ### Installer AWS CLI 
 
-
-Konfigurer AWS i terminalen med nøkler du har fått i klassetommet
-
-```
-aws configure
-```
-
-
 Installer AWS CLI
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+```
+
+Konfigurer AWS i terminalen med nøkler du har fått i klassetommet
+
+```
+aws configure
 ```
 
 Test at CLI og Akesessnøkler er riktig satt opp ved å kjøre 
