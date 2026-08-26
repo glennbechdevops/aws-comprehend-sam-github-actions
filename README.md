@@ -17,16 +17,9 @@ I øvelsen bruker vi fire sentrale AWS-tjenester:
 
 Du må starte med å lage en fork av dette repoet til din egen GitHub konto. 
 
-## Lag AWS Credentials (Access keys)
-
-Du vil få utdelt access keys i klasserommet for denne øvingen.
-
-
 ## Start et Codespace & Installer nødvendig programvare 
-* Fra din fork av dette repositoryet, starter du CodeSpaces. Keyboard shortcut er "."
-* Fra ditt nye CodeSpace - Åpne et **terminalvindu**, og velg "Continue working in GitHub Codespaces"
 
-* Alternativt, velg den grønne "Code", "Velg Codespaces" og "Create codespace from main", Da får du en terminal umiddelbart
+* I din fork, velg den grønne knappen "<> Code", og "Create codespace on main" 
   
 ### Installer AWS CLI 
 
@@ -89,9 +82,9 @@ REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  
 
 * Forsøk å endre teksten i "Body" delen av event.json - klarer du å endre sentimentet til positivt ? Hva med Ironi eller sarkasme?
 
-## Se på template.yml
+## Se på template.yaml
 
-template.yml er en SAM template. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
+template.yaml er en SAM template. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
   
 
 ## Del 1 - Deploy med SAM fra CodeSpaces
@@ -189,7 +182,7 @@ jobs:
 
 ### Legg inn repository secrets 
 
-I ditt GitHub Repo 
+Du vil få utlevert AWS nøkler i klasserommet.  I ditt GitHub Repo 
 
 * Gå til settings / Secrets and variables
 * Velg Actions
@@ -213,6 +206,11 @@ git commit -m"Workflow"
 git push
 ```
 
+* Gå til fanen "Actions" i GitHub-repoet ditt.
+* Se at workflowen kjører. Når den er ferdig, vil du få ut API Gateway URL på samme måte som ved manuell deploy.
+* Gå til AWS console, tjenesten "Lambda" og se at funksjonen din er deployet
+
+  
 ## Bonusoppgave: Endre lambdaen til å bruke en annen Comprehend-funksjon
 
 AWS Comprehend har en lang rekke funksjoner utover sentimentanalyse, se på https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
@@ -222,10 +220,6 @@ Noen muligheter
 
 * Toxic språk
 * Oppdage språk i tekst
-
-* Gå til fanen Actions i GitHub-repoet ditt.
-* Se at workflowen kjører. Når den er ferdig, vil du få ut API Gateway URL på samme måte som ved manuell deploy.
-* Gå til AWS console, tjenesten "Lambda" og se at funksjonen din er deployet
 
 ### Bonusoppgave: Legg inn sjekk for kvalitet (lint, validering og tester)
 
