@@ -1,7 +1,7 @@
 # Sentimentanalyse med AWS Comprehend, Lambda og SAM
 
 * Vi vil i denne oppgaven bruke AWS-tjenesten **Comprehend** til å analysere **sentiment** i tekst, det vil si om teksten uttrykker en positiv, negativ, nøytral eller blandet stemning.
-* Dette repoet inneholder en ferdiglaget SAM applikasjon. 
+* Dette repoet inneholder en ferdiglaget SAM-applikasjon. 
 * Applikasjonen bygges og deployes med **AWS SAM**, både via GitHub Actions (Del 2) og direkte fra ditt Codespaces-miljø (Del 1)
 
 ## Beskrivelse
@@ -15,7 +15,7 @@ I øvelsen bruker vi fire sentrale AWS-tjenester:
 
 ## Lag en fork
 
-Du må starte med å lage en fork av dette repoet til din egen GitHub konto. 
+Du må starte med å lage en fork av dette repoet til din egen GitHub-konto. 
 
 ## Start et Codespace & Installer nødvendig programvare 
 
@@ -52,7 +52,7 @@ sudo ./sam-installation/install
 
 ## Test bygg og lokal utvikling fra CodeSpaces med SAM
 
-* Ta en kikk på koden som ligger i mappen "sentiment demo". Dette er en Lambda som tar imot en HTTP request - og som
+* Ta en kikk på koden som ligger i mappen "sentiment-demo". Dette er en Lambda som tar imot en HTTP request - og som
 sender en tekst videre til tjenesten AWS Comprehend for sentimentanalyse.
 
 Gå til mappen og bygg lambdaen / SAM prosjektet.
@@ -73,7 +73,7 @@ Dette vil også ta litt tid første gang. Hent en kaffe :)
 
 Event.json filen inneholder en request, nøyaktig slik API Gateway vil sende den til "handler" metoden/funksjonen. 
 
-Du skal få en respons omtrent som denne, legg merke til at både _Negative_,_Positive_ og _Neutral_ oppgis med probabilitet. 
+Du skal få en respons omtrent som denne, legg merke til at både _Negative_, _Positive_ og _Neutral_ oppgis med probabilitet. 
 
 ```
 {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"sentiment \": \"{\\\"Sentiment\\\": \\\"NEGATIVE\\\", \\\"SentimentScore\\\": {\\\"Positive\\\": 0.00023614335805177689, \\\"Negative\\\": 0.9974453449249268, \\\"Neutral\\\": 0.00039782875683158636, \\\"Mixed\\\": 0.0019206495489925146}, \\\"ResponseMetadata\\\": {\\\"RequestId\\\": \\\"c3367a61-ee05-4071-82d3-e3aed344f9af\\\", \\\"HTTPStatusCode\\\": 200, \\\"HTTPHeaders\\\": {\\\"x-amzn-requestid\\\": \\\"c3367a61-ee05-4071-82d3-e3aed344f9af\\\", \\\"content-type\\\": \\\"application/x-amz-json-1.1\\\", \\\"content-length\\\": \\\"168\\\", \\\"date\\\": \\\"Mon, 18 Apr 2022 12:00:06 GMT\\\"}, \\\"RetryAttempts\\\": 0}}\"}"}END RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0
@@ -84,7 +84,7 @@ REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  
 
 ## Se på template.yaml
 
-template.yaml er en SAM template. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
+template.yaml er en SAM template. Dette er IaC — infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel på IAM-rollen lambdafunksjonen bruker. 
   
 ## Del 1 - Deploy med SAM fra CodeSpaces
 
@@ -97,7 +97,7 @@ Som dere ser trenger vi IKKE bruke ```--guided``` flagget hvis vi oppgir de nød
   sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-sentiment-<dine initialer eller noe>  --resolve-s3 --capabilities CAPABILITY_IAM --region eu-west-1      
  ```
 
-NB Feilsøking: Hvis deploy feiler, av en eller annen årsak. Kan det hende du må gå til tjenesten "CloudFormation" og slette stacken du oppga i `sam deploy` kommandoen. Hvis denne er i en tilstand "ROLLBACK_FAILED" så er det eneste alternativet å slette den.
+NB Feilsøking: Hvis deploy feiler av en eller annen årsak, kan det hende du må gå til tjenesten "CloudFormation" og slette stacken du oppga i `sam deploy`-kommandoen. Hvis denne er i en tilstand "ROLLBACK_FAILED" så er det eneste alternativet å slette den.
 
 Når jobben er ferdig, vil du blant annet se hva URL'en til lambdafunksjonen ble. Let etter output som ser slik ut; 
 
@@ -140,7 +140,7 @@ I denne delen skal du sette opp **CI/CD med GitHub Actions** slik at hver gang d
 
 ### Opprett workflow-fil
 
-Lag en ny fil i ditt repo med følgende filnavn: `.github/workflows/deploy.yml` - pass på punktum i github, og .yml som suffix for filnavn!
+Lag en ny fil i ditt repo med følgende filnavn: `.github/workflows/deploy.yml` - pass på punktum i `.github`, og `.yml` som suffix for filnavn!
 
 ```
 name: Deploy SAM Sentiment App
@@ -181,7 +181,7 @@ jobs:
 
 ### Legg inn repository secrets 
 
-Du vil få utlevert AWS nøkler i klasserommet.  I ditt GitHub Repo 
+Du vil få utlevert AWS-nøkler i klasserommet. I ditt GitHub-repo 
 
 * Gå til settings / Secrets and variables
 * Velg Actions
@@ -209,7 +209,7 @@ git push
 
 * Gå til fanen "Actions" i GitHub-repoet ditt.
 * Se at workflowen kjører. Når den er ferdig, vil du få ut API Gateway URL på samme måte som ved manuell deploy.
-* Gå til AWS console, tjenesten "Lambda" og se at funksjonen din er deployet
+* Gå til AWS Console, tjenesten "Lambda" og se at funksjonen din er deployet
 
   
 ## Bonusoppgave: Endre lambdaen til å bruke en annen Comprehend-funksjon
@@ -233,7 +233,7 @@ Ved hjelp av dokumentasjon eller andre verktøy (Gjerne bruk AI) - gjør følgen
 
 * Se på Python-koden og se hvordan lambda-funksjonen er implementert
 * APIet er ikke veldig brukervennlig. Koden bare sender responsen fra AWS Comprehend videre til klienten.
-* Endre responsen etter eget ønske, kanskje en enkel json med format {"Sentiment" :"Negative"} - ved negativt sentiment osv.
+* Endre responsen etter eget ønske, kanskje en enkel json med format {"Sentiment": "Negative"} - ved negativt sentiment osv.
   
 
   
