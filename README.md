@@ -1,7 +1,7 @@
 # Sentimentanalyse med AWS Comprehend, Lambda og SAM
 
-* Vi i denne oppgaven bruke AWS-tjenesten **Comprehend** til å analysere **sentiment** i tekst, det vil si om teksten uttrykker en positiv, negativ, nøytral eller blandet stemning.
-* Dette repoet inneholder er ferdiglaget SAM applikasjon. 
+* Vi vil i denne oppgaven bruke AWS-tjenesten **Comprehend** til å analysere **sentiment** i tekst, det vil si om teksten uttrykker en positiv, negativ, nøytral eller blandet stemning.
+* Dette repoet inneholder en ferdiglaget SAM applikasjon. 
 * Applikasjonen bygges og deployes med **AWS SAM**, både via GitHub Actions (Del 2) og direkte fra ditt Codespaces-miljø (Del 1)
 
 ## Beskrivelse
@@ -15,7 +15,7 @@ I øvelsen bruker vi fire sentrale AWS-tjenester:
 
 ## Lag en fork
 
-Du må start med å lage en fork av dette repoet til din egen GitHub konto. 
+Du må starte med å lage en fork av dette repoet til din egen GitHub konto. 
 
 ## Lag AWS Credentials (Access keys)
 
@@ -24,7 +24,7 @@ Du vil få utdelt access keys i klasserommet for denne øvingen.
 
 ## Start et Codespace & Installer nødvendig programvare 
 * Fra din fork av dette repositoryet, starter du CodeSpaces. Keyboard shortcut er "."
-* Fra ditt mnye CodeSpace - Åpne et **terminalvindu**, og velg "Continue working in GitHub Codespaces"
+* Fra ditt nye CodeSpace - Åpne et **terminalvindu**, og velg "Continue working in GitHub Codespaces"
 
 * Alternativt, velg den grønne "Code", "Velg Codespaces" og "Create codespace from main", Da får du en terminal umiddelbart
   
@@ -37,13 +37,13 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-Konfigurer AWS i terminalen med nøkler du har fått i klassetommet
+Konfigurer AWS i terminalen med nøkler du har fått i klasserommet
 
 ```
 aws configure
 ```
 
-Test at CLI og Akesessnøkler er riktig satt opp ved å kjøre 
+Test at CLI og aksessnøkler er riktig satt opp ved å kjøre 
 
 ```
 aws s3 ls
@@ -55,7 +55,7 @@ aws s3 ls
 wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
 unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 sudo ./sam-installation/install
-````
+```
 
 ## Test bygg og lokal utvikling fra CodeSpaces med SAM
 
@@ -68,7 +68,7 @@ Gå til mappen og bygg lambdaen / SAM prosjektet.
 cd sentiment-demo/
 sam build --use-container
 ```
-Dette kan ta litt tid første gang, siden SAM må hente en container for å bygge lambda-funkskjonen
+Dette kan ta litt tid første gang, siden SAM må hente en container for å bygge lambda-funksjonen
 
 Du kan teste uten å deploye den til AWS ved å kjøre kommandoen 
 
@@ -87,11 +87,11 @@ Du skal få en respons omtrent som denne, legg merke til at både _Negative_,_Po
 REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  Duration: 1674.95 ms    Billed Duration: 1675 ms        Memory Size: 128 MB     Max Memory Used: 128 MB
 ```
 
-* Forsøke å endre teksten i "Body" delen av event.json - klarer å å endre sentimentet til positivt ? Hva med Ironi eller sarkasme?
+* Forsøk å endre teksten i "Body" delen av event.json - klarer du å endre sentimentet til positivt ? Hva med Ironi eller sarkasme?
 
 ## Se på template.yml
 
-template.yml er en SAM tamplate. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres er. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
+template.yml er en SAM template. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
   
 
 ## Del 1 - Deploy med SAM fra CodeSpaces
@@ -105,9 +105,9 @@ Som dere ser trenger vi IKKE bruke ```--guided``` flagget hvis vi oppgir de nød
   sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-sentiment-<dine initialer eller noe>  --resolve-s3 --capabilities CAPABILITY_IAM --region eu-west-1      
  ```
 
-NB Feilsøking: Hvis deploy feiler, av en eller annen årsak. Kan det hende du må gå til tjenesten "CloudFormation" og slette stacken som oppga i `sam deploy` kommandoen. Hvis denne er i en tilstand "ROLLBACK_FAILED" så er det eneste alternativet å slette den.
+NB Feilsøking: Hvis deploy feiler, av en eller annen årsak. Kan det hende du må gå til tjenesten "CloudFormation" og slette stacken du oppga i `sam deploy` kommandoen. Hvis denne er i en tilstand "ROLLBACK_FAILED" så er det eneste alternativet å slette den.
 
-Når jobben er ferdig, vil du blant annet se hva URL'en til lambdafunksjonen ble. Let etter output som ser slikt ut; 
+Når jobben er ferdig, vil du blant annet se hva URL'en til lambdafunksjonen ble. Let etter output som ser slik ut; 
 
 ```text
 Key                 SentimentAPI                                                                
@@ -115,7 +115,7 @@ Description         API Gateway endpoint URL for Prod stage for Sentiment functi
 Value               https://orpbuzoiik.execute-api.us-west-1.amazonaws.com/Prod/sentiment/      
 ```
 
-Du kan nå bruke postman eller Curl til å teste ut tjenesten. Erstat URL med URL'en til lambdafunksjonen. 
+Du kan nå bruke postman eller Curl til å teste ut tjenesten. Erstatt URL med URL'en til lambdafunksjonen. 
 
 ```shell
 export URL=<URL fra "Value" i output >
@@ -148,7 +148,7 @@ I denne delen skal du sette opp **CI/CD med GitHub Actions** slik at hver gang d
 
 ### Opprett workflow-fil
 
-Lag en ny fil i ditt med følgende filnavn: `.github/workflows/deploy.yml` - pass på punktum i github, og .yml som suffix for filnavn!
+Lag en ny fil i ditt repo med følgende filnavn: `.github/workflows/deploy.yml` - pass på punktum i github, og .yml som suffix for filnavn!
 
 ```
 name: Deploy SAM Sentiment App
@@ -187,13 +187,13 @@ jobs:
             --region eu-west-1
 ```
 
-### Legg inn repository secerts 
+### Legg inn repository secrets 
 
 I ditt GitHub Repo 
 
 * Gå til settings / Secrets and variables
 * Velg Actions
-* Leg to secrets AWS_ACCESS_KEY_ID, og AWS_SECRET_ACCESS_KEY med verdier gitt i klasserommet
+* Legg til to secrets AWS_ACCESS_KEY_ID, og AWS_SECRET_ACCESS_KEY med verdier gitt i klasserommet
 
 **Forklaring av workflowen**
 
@@ -205,7 +205,7 @@ I ditt GitHub Repo
 
 ### Test workflow
 
-***Commit & synkroniserfilen deploy.yml** (Git push)
+**Commit & synkroniser filen `deploy.yml`** (Git push)
 
 ```
 git add .github/
@@ -213,15 +213,15 @@ git commit -m"Workflow"
 git push
 ```
 
-## Bonusoppgave: Endre lambdaen til å bruke en annen Comprehend-funkskjon
+## Bonusoppgave: Endre lambdaen til å bruke en annen Comprehend-funksjon
 
 AWS Comprehend har en lang rekke funksjoner utover sentimentanalyse, se på https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
-og finn inspirasjon til å endre Lambdafunksjonen så den gjør noe annet en sentimentanalyse.
+og finn inspirasjon til å endre Lambdafunksjonen så den gjør noe annet enn sentimentanalyse.
 
 Noen muligheter
 
 * Toxic språk
-* Oppdate språk i tekst
+* Oppdage språk i tekst
 
 * Gå til fanen Actions i GitHub-repoet ditt.
 * Se at workflowen kjører. Når den er ferdig, vil du få ut API Gateway URL på samme måte som ved manuell deploy.
