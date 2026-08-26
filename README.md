@@ -68,12 +68,15 @@ Gå til mappen og bygg lambdaen / SAM prosjektet.
 cd sentiment-demo/
 sam build --use-container
 ```
+Dette kan ta litt tid første gang, siden SAM må hente en container for å bygge lambda-funkskjonen
 
-Du kan teste funksjonen uten å deploye den til AWS ved å kjøre kommandoen 
+Du kan teste uten å deploye den til AWS ved å kjøre kommandoen 
 
 ```shell
 sam local invoke -e event.json 
 ```
+
+Dette vil også ta litt tid første gang. Hent en kaffe :)
 
 Event.json filen inneholder en request, nøyaktig slik API Gateway vil sende den til "handler" metoden/funksjonen. 
 
@@ -84,27 +87,12 @@ Du skal få en respons omtrent som denne, legg merke til at både _Negative_,_Po
 REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  Duration: 1674.95 ms    Billed Duration: 1675 ms        Memory Size: 128 MB     Max Memory Used: 128 MB
 ```
 
-* Forsøke å endre teksten i "Body" delen av event.json - klarer å å endre sentimentet til positivt ?
+* Forsøke å endre teksten i "Body" delen av event.json - klarer å å endre sentimentet til positivt ? Hva med Ironi eller sarkasme?
+
+## Se på template.yml
+
+template.yml er en SAM tamplate. Dette er IAC- infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres er. Se for eksempel  på IAM rollen lambdafunksjonen bruker. 
   
-## Oppgave: Utforsk Lambda-funksjonen i konsollet
-
-Når dere deployet applikasjonen med **SAM**, ble det opprettet en Lambda-funksjon i AWS.  
-I denne oppgaven skal dere utforske den funksjonen i **AWS Management Console** og gjøre en enkel endring i konfigurasjonen.
-
-1. Finn Lambda-funksjonen som ble opprettet av SAM-deployen.  
-   - Tips: bruk konsollet og let dere frem til riktig ressurs.  
-   - Noter hvilket navn funksjonen har.
-
-2. Undersøk hvilke innstillinger funksjonen har.  
-   - Hvilken runtime er valgt?  
-   - Hva står timeout-verdien til?  
-   - Er det satt miljøvariabler?
-
-3. Endre én innstilling på funksjonen:  
-   - Sett timeout til **60 sekunder**.  
-   - Bekreft at endringen er lagret.
-
-Her er målet å bli kjent med Lambda i konsollet og forstå hvordan SAM og AWS Console henger sammen. 
 
 ## Del 1 - Deploy med SAM fra CodeSpaces
 
@@ -117,7 +105,7 @@ Som dere ser trenger vi IKKE bruke ```--guided``` flagget hvis vi oppgir de nød
   sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-sentiment-<dine initialer eller noe>  --resolve-s3 --capabilities CAPABILITY_IAM --region eu-west-1      
  ```
 
-NB. Hvis deploy feiler, av en eller annen årsak. Kan det hende du må gå til tjenesten "CloudFormation" og slette stacken som oppga i deploy-kommandoen. Hvis denne er i en tilstand "ROLLBACK_FAILED" så er det eneste alternativet å slette den.
+NB Feilsøking: Hvis deploy feiler, av en eller annen årsak. Kan det hende du må gå til tjenesten "CloudFormation" og slette stacken som oppga i `sam deploy` kommandoen. Hvis denne er i en tilstand "ROLLBACK_FAILED" så er det eneste alternativet å slette den.
 
 Når jobben er ferdig, vil du blant annet se hva URL'en til lambdafunksjonen ble. Let etter output som ser slikt ut; 
 
@@ -134,13 +122,33 @@ export URL=<URL fra "Value" i output >
 curl -X POST $URL -H 'Content-Type: text/plain'  -H 'cache-control: no-cache' -d 'The laptop would not boot up when I got it.'
 ```
 
+### Oppgave: Utforsk Lambda-funksjonen i konsollet
+
+Når dere deployet applikasjonen med **SAM**, ble det opprettet en Lambda-funksjon i AWS.  
+I denne oppgaven skal dere utforske den funksjonen i **AWS Management Console** og gjøre en enkel endring i konfigurasjonen.
+
+1. Finn Lambda-funksjonen som ble opprettet av SAM-deploy.  
+   - Tips: bruk konsollet og let dere frem til riktig ressurs.  
+   - Noter hvilket navn funksjonen har.
+
+2. Undersøk hvilke innstillinger funksjonen har.  
+   - Hvilken runtime er valgt?  
+   - Hva står timeout-verdien til?  
+   - Er det satt miljøvariabler?
+
+3. Endre én innstilling på funksjonen:  
+   - Sett timeout til **60 sekunder**.  
+   - Bekreft at endringen er lagret.
+
+Her er målet å bli kjent med Lambda i konsollet og forstå hvordan SAM og AWS Console henger sammen. 
+
 ## Del 2 - Lag en GitHub Actions workflow som deployer lambdafunksjonen 
 
 I denne delen skal du sette opp **CI/CD med GitHub Actions** slik at hver gang du gjør en endring og pusher til `main`, blir SAM-applikasjonen automatisk bygd og deployet til AWS.
 
 ### Opprett workflow-fil
 
-Lag en ny fil i ditt med følgende filnavn: `.github/workflows/deploy.yml` - pass på punktum i github, og .yml som suffix for vilnavn!
+Lag en ny fil i ditt med følgende filnavn: `.github/workflows/deploy.yml` - pass på punktum i github, og .yml som suffix for filnavn!
 
 ```
 name: Deploy SAM Sentiment App
@@ -179,6 +187,14 @@ jobs:
             --region eu-west-1
 ```
 
+### Legg inn repository secerts 
+
+I ditt GitHub Repo 
+
+* Gå til settings / Secrets and variables
+* Velg Actions
+* Leg to secrets AWS_ACCESS_KEY_ID, og AWS_SECRET_ACCESS_KEY med verdier gitt i klasserommet
+
 **Forklaring av workflowen**
 
 * on: push to main → Workflow kjører når du pusher til main.
@@ -191,23 +207,12 @@ jobs:
 
 ***Commit & synkroniserfilen deploy.yml** (Git push)
 
-* Gå til fanen Actions i GitHub-repoet ditt.
-* Se at workflowen kjører. Når den er ferdig, vil du få ut API Gateway URL på samme måte som ved manuell deploy.
-* Gå til AWS console, tjenesten "Lambda" og se at funksjonen din er deployet
+```
+git add .github/
+git commit -m"Workflow"
+git push
+```
 
-### Legg inn sjekk for kvalitet (lint, validering og tester)
-
-Ved hjelp av dokumentasjon eller andre verktøy (Gjerne bruk AI) - gjør følgende. 
-
-* Legg inn sam validate og cfn-lint på template.yaml.
-* Kjør pytest for Lambda (skriv minst 2–3 tester som mocker Comprehend-kallet). 
-
-## Bonus: Gjør APIet mer brukervennlig
-
-* Se på Python-koden og se hvordan lambda-funksjonen er implementert
-* APIet er ikke veldig brukervennlig. Koden bare sender responsen fra AWS Comprehend videre til klienten.
-* Endre responsen etter eget ønske, kanskje en enkel json med format {"Sentiment" :"Negative"} - ved negativt sentiment osv.
-  
 ## Bonusoppgave: Endre lambdaen til å bruke en annen Comprehend-funkskjon
 
 AWS Comprehend har en lang rekke funksjoner utover sentimentanalyse, se på https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
@@ -217,4 +222,23 @@ Noen muligheter
 
 * Toxic språk
 * Oppdate språk i tekst
+
+* Gå til fanen Actions i GitHub-repoet ditt.
+* Se at workflowen kjører. Når den er ferdig, vil du få ut API Gateway URL på samme måte som ved manuell deploy.
+* Gå til AWS console, tjenesten "Lambda" og se at funksjonen din er deployet
+
+### Bonusoppgave: Legg inn sjekk for kvalitet (lint, validering og tester)
+
+Ved hjelp av dokumentasjon eller andre verktøy (Gjerne bruk AI) - gjør følgende. 
+
+* Legg inn sam validate og cfn-lint på template.yaml.
+* Kjør pytest for Lambda (skriv minst 2–3 tester som mocker Comprehend-kallet). 
+
+## Bonusoppgave: Gjør APIet mer brukervennlig
+
+* Se på Python-koden og se hvordan lambda-funksjonen er implementert
+* APIet er ikke veldig brukervennlig. Koden bare sender responsen fra AWS Comprehend videre til klienten.
+* Endre responsen etter eget ønske, kanskje en enkel json med format {"Sentiment" :"Negative"} - ved negativt sentiment osv.
+  
+
   
