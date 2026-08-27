@@ -35,6 +35,9 @@ Konfigurer AWS i terminalen med nøkler du har fått i klasserommet
 ```
 aws configure
 ```
+bruk ´eu-west-1` som region
+bruk `json` som default output format
+
 
 Test at CLI og aksessnøkler er riktig satt opp ved å kjøre 
 
