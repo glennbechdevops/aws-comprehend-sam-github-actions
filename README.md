@@ -187,7 +187,7 @@ Du vil få utlevert AWS-nøkler i klasserommet. I ditt GitHub-repo
 
 * Gå til settings / Secrets and variables
 * Velg Actions
-* Legg til to secrets AWS_ACCESS_KEY_ID, og AWS_SECRET_ACCESS_KEY med verdier gitt i klasserommet
+* Legg til to `repository secrets` AWS_ACCESS_KEY_ID, og AWS_SECRET_ACCESS_KEY med verdier gitt i klasserommet
 
 **Forklaring av workflowen**
 
