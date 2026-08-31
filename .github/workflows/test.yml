@@ -1,0 +1,19 @@
+name: Deploy SAM Sentiment App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Python action 
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13' 
+
+      - run: python ./tests/tests.event.py 
