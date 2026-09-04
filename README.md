@@ -242,6 +242,10 @@ Ved hjelp av dokumentasjon eller andre verktøy (Gjerne bruk AI) - gjør følgen
 * Se på Python-koden og se hvordan lambda-funksjonen er implementert
 * APIet er ikke veldig brukervennlig. Koden bare sender responsen fra AWS Comprehend videre til klienten.
 * Endre responsen etter eget ønske, kanskje en enkel json med format {"Sentiment": "Negative"} - ved negativt sentiment osv.
-  
 
-  
+## Referanser
+
+* [AWS Lambda – offisiell dokumentasjon](https://docs.aws.amazon.com/lambda/)
+* [AWS Lambda FAQ](https://aws.amazon.com/lambda/faqs/)
+* [Amazon Comprehend – offisiell dokumentasjon](https://docs.aws.amazon.com/comprehend/)
+
