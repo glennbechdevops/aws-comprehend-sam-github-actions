@@ -68,15 +68,15 @@ Gå til mappen og bygg lambdaen / SAM prosjektet.
 cd sentiment-demo/
 sam build --use-container
 ```
-Dette kan ta litt tid første gang, siden SAM må hente en container for å bygge lambda-funksjonen
+Dette kan ta litt tid første gang, siden SAM må hente en container for å bygge lambda-funksjonen ...................
 
 Du kan teste uten å deploye den til AWS ved å kjøre kommandoen 
 
 ```shell
-sam local invoke -e event.json 
+sam local invoke -e event.json | jq 
 ```
 
-Dette vil også ta litt tid første gang. Hent en kaffe :)
+PS. 'jq' er kommandolinjeverktøy for å jobbe med JSON og sørger for penere output. Dette vil også ta litt tid første gang. Hent en kaffe  .................
 
 `event.json`-filen inneholder en request, nøyaktig slik API Gateway vil sende den til `handler`-metoden/funksjonen. 
 
@@ -91,7 +91,7 @@ REPORT RequestId: d37e4849-b175-4fa6-aa4b-0031af6f41a0  Init Duration: 0.42 ms  
 
 ## Se på template.yaml
 
-template.yaml er en SAM template. Dette er IaC — infrastruktur som kode. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel på IAM-rollen lambdafunksjonen bruker. 
+template.yaml er en SAM template. Dette er IaC — infrastruktur som kode. Vi skal bli godt kjent med konseptet i løpet av semesteret. All infrastruktur som er nødvendig for funksjonen deklareres her. Se for eksempel på IAM-rollen lambdafunksjonen bruker. 
   
 ## Del 1 - Deploy med SAM fra CodeSpaces
 
