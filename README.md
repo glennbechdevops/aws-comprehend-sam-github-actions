@@ -6,7 +6,7 @@
 
 ## Beskrivelse
 
-I øvelsen bruker vi fire sentrale AWS-tjenester:
+I øving  bruker vi fire sentrale AWS-tjenester:
 
 * **AWS Lambda** – Serverless compute. Kjører en funksjon på forespørsel og stopper når den er ferdig. Du betaler kun for kjøretiden (millisekunder).
 * **Amazon API Gateway** – Gir Lambda et HTTP-grensesnitt mot omverdenen. Støtter autentisering, caching, throttling og rate limiting.
