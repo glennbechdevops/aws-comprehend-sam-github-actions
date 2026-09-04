@@ -17,40 +17,45 @@ I øvelsen bruker vi fire sentrale AWS-tjenester:
 
 Du må starte med å lage en fork av dette repoet til din egen GitHub-konto. 
 
-## Start et Codespace & Installer nødvendig programvare 
+## Start et Codespace
 
-I din fork, velg den grønne knappen "<> Code", og "Create codespace on main". 
-  
-### Installer AWS CLI 
+I din fork, velg den grønne knappen "<> Code", og "Create codespace on main".
 
-Installer AWS CLI
+Dette repoet har en **devcontainer** (se `.devcontainer/devcontainer.json`) som gjør at Codespaces automatisk installerer alt du trenger:
+
+* **AWS CLI** – for å snakke med AWS fra kommandolinjen
+* **AWS SAM CLI** – for å bygge og deploye Lambda- og API Gateway-ressurser
+* **Docker** – brukes av SAM under `sam build --use-container` og `sam local invoke`
+
+Første gang Codespacet startes tar det noen minutter å bygge miljøet.
+
+### Verifiser at verktøyene er tilgjengelige
+
+Sjekk at alt er på plass ved å kjøre følgende i terminalen:
+
+```shell
+aws --version
+sam --version
+docker --version
 ```
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-```
 
-Konfigurer AWS i terminalen med nøkler du har fått i klasserommet
+Du skal få et versjonsnummer tilbake for alle tre. Får du "command not found" er devcontaineren ikke ferdig bygget, eller bygget feilet – sjekk loggen fra "Codespaces: View Creation Log".
 
-```
+### Konfigurer AWS-nøkler
+
+Konfigurer AWS i terminalen med nøkler du har fått i klasserommet:
+
+```shell
 aws configure
 ```
+
 * bruk `eu-west-1` som region
 * bruk `json` som default output format
 
+Test at CLI og aksessnøkler er riktig satt opp ved å kjøre:
 
-Test at CLI og aksessnøkler er riktig satt opp ved å kjøre 
-
-```
+```shell
 aws s3 ls
-```
-
-### Installer SAM
-
-```
-wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
-unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
-sudo ./sam-installation/install
 ```
 
 ## Test bygg og lokal utvikling fra CodeSpaces med SAM

@@ -1,0 +1,22 @@
+{
+  "name": "aws-comprehend-sam",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    }
+  },
+  "postCreateCommand": "pip install --user aws-sam-cli && pip install --user -r sentiment-demo/lambda/requirements.txt",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "amazonwebservices.aws-toolkit-vscode",
+        "ms-python.python"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "AWS_REGION": "eu-west-1"
+  }
+}
